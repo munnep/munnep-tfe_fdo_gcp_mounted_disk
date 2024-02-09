@@ -1,4 +1,4 @@
-# munnep-tfe_fdo_gcp_mounted_disk
+# Terraform Enterprise FDO - Mounted disk on Google Cloud Platform
 
 This is a repository to have a TFE FDO mounted disk environment on GCP. 
 
