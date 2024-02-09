@@ -76,7 +76,7 @@ Outputs:
 
 ssh_tfe_server = "ssh ubuntu@tfe23.aws.munnep.com"
 tfe_appplication = "https://tfe23.aws.munnep.com"
-tfe_instance_public_ip = "ssh ubuntu@34.32.208.215"
+tfe_instance_public_ip = "34.32.208.215"
 ```
 - You can now login to the application with the username `admin` and password specified in your variables.
 
