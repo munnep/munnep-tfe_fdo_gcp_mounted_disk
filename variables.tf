@@ -42,6 +42,10 @@ variable "gcp_region" {
   description = "region to create the environment"
 }
 
+variable "gcp_project" {
+  description = "project for the resources to use"
+}
+
 
 variable "certificate_email" {
   description = "email address to register the certificate"
