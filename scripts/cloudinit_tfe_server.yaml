@@ -106,9 +106,9 @@ write_files:
       sysctl -p
 
       # Select the disks to use 
-      SWAP=/dev/$(lsblk | grep sd | grep -v sda | grep -v sdb | sort -k 4 | awk '{print $1}' | awk '(NR==1)')
-      DOCKER=/dev/$(lsblk | grep sd | grep -v sda | grep -v sdb | sort -k 4 | awk '{print $1}' | awk '(NR==2)')
-      TFE=/dev/$(lsblk | grep sd | grep -v sda | grep -v sdb | sort -k 4 | awk '{print $1}' | awk '(NR==3)')
+      SWAP=/dev/$(lsblk | grep sd | grep -v sda | sort -k 4 | awk '{print $1}' | awk '(NR==1)')
+      DOCKER=/dev/$(lsblk | grep sd | grep -v sda | sort -k 4 | awk '{print $1}' | awk '(NR==2)')
+      TFE=/dev/$(lsblk | grep sd | grep -v sda | sort -k 4 | awk '{print $1}' | awk '(NR==3)')
       
       # swap
       # if SWAP exists
