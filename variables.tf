@@ -34,9 +34,14 @@ variable "tfe_license" {
   description = "the TFE license as a string"
 }
 
-variable "region" {
+variable "aws_region" {
   description = "region to create the environment"
 }
+
+variable "gcp_region" {
+  description = "region to create the environment"
+}
+
 
 variable "certificate_email" {
   description = "email address to register the certificate"

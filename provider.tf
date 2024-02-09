@@ -15,15 +15,14 @@ provider "google" {
   # Configuration options
   credentials = file("${path.module}/key.json")
   project     = "hc-ff9323d13b0e4e0daee434a8171"
-  region      = "europe-west4"
+  region      = var.gcp_region
 }
 
 provider "aws" {
-  region = var.region
+  region = var.aws_region
 }
 
 provider "acme" {
   # server_url = "https://acme-staging-v02.api.letsencrypt.org/directory"
   server_url = "https://acme-v02.api.letsencrypt.org/directory"
 }
-

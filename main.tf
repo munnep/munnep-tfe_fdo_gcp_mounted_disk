@@ -16,10 +16,12 @@ resource "google_compute_router" "tfe_router" {
 }
 
 
+
+
 resource "google_compute_instance" "tfe" {
   name         = var.tag_prefix
   machine_type = "n2-standard-8"
-  zone         = "europe-west4-a"
+  zone         = "${var.gcp_region}-a"
 
 
 
@@ -35,8 +37,8 @@ resource "google_compute_instance" "tfe" {
   }
 
   network_interface {
-    network    = "tfe23-vpc"
-    subnetwork = "tfe23-public1"
+    network    = "${var.tag_prefix}-vpc"
+    subnetwork = "${var.tag_prefix}-public1"
 
     access_config {
       // Ephemeral public IP
@@ -61,13 +63,52 @@ resource "google_compute_instance" "tfe" {
 
 
   depends_on = [google_compute_subnetwork.tfe_subnet]
+
+  lifecycle {
+    ignore_changes = [ attached_disk ]
+  }
 }
 
 resource "google_compute_address" "tfe-public-ipc" {
-  name         = "tfe-public-ip"
+  name         = "${var.tag_prefix}-public-ip"
   address_type = "EXTERNAL"
 }
 
+resource "google_compute_disk" "compute_disk_swap" {
+  name = "${var.tag_prefix}-swap-disk"
+  type = "pd-ssd"
+  size = "10"
+  zone = "${var.gcp_region}-a"
+}
+
+resource "google_compute_disk" "compute_disk_docker" {
+  name = "${var.tag_prefix}-docker-disk"
+  type = "pd-ssd"
+  size = "20"
+  zone = "${var.gcp_region}-a"
+}
+
+resource "google_compute_disk" "compute_disk_tfe_data" {
+  name = "${var.tag_prefix}-tfe-data-disk"
+  type = "pd-ssd"
+  size = "40"
+  zone = "${var.gcp_region}-a"
+}
+
+resource "google_compute_attached_disk" "swap" {
+  disk     = google_compute_disk.compute_disk_swap.id
+  instance = google_compute_instance.tfe.id
+}
+
+resource "google_compute_attached_disk" "docker" {
+  disk     = google_compute_disk.compute_disk_docker.id
+  instance = google_compute_instance.tfe.id
+}
+
+resource "google_compute_attached_disk" "tfe_data" {
+  disk     = google_compute_disk.compute_disk_tfe_data.id
+  instance = google_compute_instance.tfe.id
+}
 
 resource "google_compute_firewall" "default" {
   name    = "test-firewall"
