@@ -54,7 +54,7 @@ aws_region        = "eu-north-1"              # AWS region creating the DNS reco
 # gcp
 gcp_region        = "eu-north-1"                  # GCP region creating the resources
 vnet_cidr         = "10.214.0.0/16"               # Network to be used
-gcp_project       ="hc-ff9323d13b0e4e0daee434a8171"
+gcp_project       = "hc-ff9323d13b0e4e0daee434a8171"
 ```
 - Terraform initialize
 ```
